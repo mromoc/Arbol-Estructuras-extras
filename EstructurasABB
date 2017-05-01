@@ -1,0 +1,131 @@
+//Pregunta si el arbol esta vacio , retornara 1 o verdadero si no esta vacio, 0 si lo esta.
+
+int VacioAB(Arbol *a)
+{
+    if(a==NULL){return 1;}
+    else{return 0;}
+}
+
+//Pregunta si un elemento esta o no en el Arbol.
+
+int estaelem(Abb *a, int elem)
+{
+	if(a==NULL)
+	{
+		return 0;
+	}
+	else if(a->dato > elem)
+	{
+		return (estaelem(a->izq,elem));
+	}
+	else if(a->dato < elem)
+	{
+		return (estaelem(a->der,elem));
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+//INSERTAR ELEMENTO
+
+Abb *Inselem(Abb *a,int elem)
+{
+	if(a==NULL)
+	{
+		a=malloc(sizeof(Abb));
+		a->dato=elem;
+		a->izq = a->der = NULL;
+	}
+	else if(a->dato >elem)
+	{
+		a->izq=Inselem(a->izq,elem);
+	}
+	else if(a->dato < elem)
+	{
+		a->der=Inselem(a->der, elem);
+	}
+	return a;
+}
+
+//ELIMINA ELEMENTO
+
+Abb *Eliminavalor(Abb *a,int elem)
+{
+	Abb *p;
+	int mayor;
+	if(a->dato==elem)
+	{
+		if(a->izq==NULL && a->der==NULL)
+		{
+			free(a);
+			return NULL;
+		}
+		else if(a->izq==NULL)
+		{
+			p=a->der;
+			free(a);
+			return p;
+		}
+		else
+		{
+			mayor=MayorElemento(a->izq);
+			a->dato=mayor;
+			a->izq=Eliminavalor(a->izq,mayor);
+		}
+	}
+	else if(a->dato>elem)
+	{
+		a->izq=Eliminavalor(a->izq,elem);
+	}
+	else
+	{
+		a->der=Eliminavalor(a->der,elem);
+	}
+	return (a);
+}
+
+//Retorna la cantidad de elementos que hay
+
+int cantidad(Abb *a)
+{
+	if(a==NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		return (cantidad(a->izq)+1+cantidad(a->der));
+	}
+}
+
+
+//RECORRIDOS
+
+void preOrden(Arbol abb){
+    if(abb)
+    {
+        printf("%s\n", abb->nombre);
+        preOrden(abb->izq);
+        preOrden(abb->der);
+    }
+}
+
+void postOrden(Arbol abb){
+    if(abb)
+    {
+        postOrden(abb->izq);
+        postOrden(abb->der);
+        printf("%s\n", abb->nombre);
+    }
+}
+
+void inOrden(Arbol abb){
+    if(abb)
+    {
+        inOrden(abb->izq);
+        printf("%s\n", abb->nombre);
+        inOrden(abb->der);
+    }
+}   
