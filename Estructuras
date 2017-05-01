@@ -1,0 +1,26 @@
+//Pregunta si el arbol esta vacio , retornara 1 o verdadero si no esta vacio, 0 si lo esta.
+
+int VacioAB(Arbol *a)
+{
+    if(a==NULL){return 1;}
+    else{return 0;}
+}
+
+//Pregunta si un elemento esta o no en el Arbol.
+
+int EstaAB(Arbol *a, tipo elem)
+{
+  if(VacioAB(a))
+  {
+    return 0;
+  }
+  else if(elem == a->dato)
+  {
+    return 1;
+  }
+  else
+  {
+    return EstaAB()
+  }
+  
+}
